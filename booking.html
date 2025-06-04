@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Booking</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="bookingstyle.css">
+
+</head>
+<body>
+    <header class="header">
+        <a href="index.html" class="logo"><span>S</span>potlight</a>
+        
+        <nav class="navbar">
+            <a href="index.html#home">home</a>
+            <a href="index.html#about">about</a>
+            <a href="support.html">support</a>
+            <a href="logic and dom.html">logic and dom</a>
+            <a href="index.html#product">product</a>
+            <a href="index.html#price">price</a>
+            <a href="contact.html">contact</a>
+            <a href="booking.html" class="booking-nav-btn"><i class="fas fa-calendar-alt"></i></a>
+        </nav>
+        
+        <div id="menu-bars" class="fas fa-bars"></div>
+        <a href="login.html" class="Login-btn">Log in</a>
+      </header>
+ 
+    <section class="booking" id="booking">
+    <h1 class="heading">Event's <span>booking</span></h1>
+    
+    <div class="success-message" id="successMessage">
+      <i class="fas fa-check-circle"></i> Your event has been successfully booked! We will contact you to confirm the details.
+    </div>
+    
+    <div class="booking-container">
+      <div class="booking-calendar">
+        <div class="input-group">
+          <label for="event-date"><i class="fas fa-calendar"></i> Choose the event's data</label>
+          <input type="text" id="event-date" placeholder="Выберите дату" readonly>
+        </div>
+        
+        <div class="input-group" id="timeSlotContainer">
+          <label><i class="fas fa-clock"></i> Accessible time</label>
+          <div class="time-slots">
+            <div class="time-slot" data-time="09:00">09:00</div>
+            <div class="time-slot" data-time="10:00">10:00</div>
+            <div class="time-slot" data-time="11:00">11:00</div>
+            <div class="time-slot unavailable" data-time="12:00">12:00</div>
+            <div class="time-slot" data-time="13:00">13:00</div>
+            <div class="time-slot" data-time="14:00">14:00</div>
+            <div class="time-slot unavailable" data-time="15:00">15:00</div>
+            <div class="time-slot" data-time="16:00">16:00</div>
+            <div class="time-slot" data-time="17:00">17:00</div>
+            <div class="time-slot" data-time="18:00">18:00</div>
+            <div class="time-slot" data-time="19:00">19:00</div>
+            <div class="time-slot" data-time="20:00">20:00</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="booking-form">
+        <form id="bookingForm">
+          <div class="input-group">
+            <label for="event-type"><i class="fas fa-glass-cheers"></i> Event type</label>
+            <select id="event-type" required>
+              <option value="">Choose the event type</option>
+              <option value="concert">Concert</option>
+              <option value="museum">Museum</option>
+              <option value="opera">Opera</option>
+              <option value="wedding">Wedding</option>
+              <option value="birthday">Birthday</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          
+          <div class="input-group">
+            <label for="guests"><i class="fas fa-users"></i> Amount of guests</label>
+            <input type="number" id="guests" min="1" max="1000" placeholder="Введите количество гостей" required>
+          </div>
+          
+          <div class="input-group">
+            <label for="name"><i class="fas fa-user"></i> Name</label>
+            <input type="text" id="name" placeholder="Введите ваше имя" required>
+          </div>
+          
+          <div class="input-group">
+            <label for="email"><i class="fas fa-envelope"></i> Email</label>
+            <input type="email" id="email" placeholder="Введите ваш email" required>
+          </div>
+          
+          <div class="input-group">
+            <label for="phone"><i class="fas fa-phone"></i> Phone</label>
+            <input type="tel" id="phone" placeholder="Введите ваш телефон" required>
+          </div>
+          
+          <div class="input-group">
+            <label for="notes"><i class="fas fa-pencil-alt"></i> Additional info</label>
+            <textarea id="notes" placeholder="Опишите ваши пожелания и требования"></textarea>
+          </div>
+          
+          <div class="summary" id="bookingSummary">
+            <h3>Booking Summary</h3>
+            <p><strong>Date:</strong> <span id="summaryDate">Not chosen></span></p>
+            <p><strong>Time:</strong> <span id="summaryTime">Not chosen</span></p>
+            <p><strong>Event type:</strong> <span id="summaryType">Not chosen</span></p>
+            <p><strong>Quest Quantity:</strong> <span id="summaryGuests">0</span></p>
+          </div>
+          
+          <button type="submit" class="btn">Book</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      
+      const unavailableDates = ["2025-05-15", "2025-05-20", "2025-05-25"];
+      
+      flatpickr('#event-date', {
+        minDate: "today",
+        dateFormat: "Y-m-d",
+        disable: unavailableDates,
+        onChange: function(selectedDates, dateStr) {
+          document.getElementById('summaryDate').textContent = dateStr;
+          updateTimeSlots(dateStr);
+        }
+      });
+      
+      
+      const timeSlots = document.querySelectorAll('.time-slot:not(.unavailable)');
+      timeSlots.forEach(slot => {
+        slot.addEventListener('click', function() {
+          timeSlots.forEach(s => s.classList.remove('selected'));
+          this.classList.add('selected');
+          document.getElementById('summaryTime').textContent = this.dataset.time;
+        });
+      });
+      
+      
+      document.getElementById('event-type').addEventListener('change', function() {
+        const selectedOption = this.options[this.selectedIndex];
+        document.getElementById('summaryType').textContent = selectedOption.text;
+      });
+      
+      document.getElementById('guests').addEventListener('input', function() {
+        document.getElementById('summaryGuests').textContent = this.value;
+      });
+      
+      
+      document.getElementById('bookingForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        
+        const date = document.getElementById('event-date').value;
+        const selectedTimeSlot = document.querySelector('.time-slot.selected');
+        
+        if (!date) {
+          alert('Пожалуйста, выберите дату мероприятия');
+          return;
+        }
+        
+        if (!selectedTimeSlot) {
+          alert('Пожалуйста, выберите время мероприятия');
+          return;
+        }
+        
+        
+        document.getElementById('successMessage').style.display = 'block';
+        
+        
+        document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth' });
+        
+       
+        setTimeout(() => {
+          this.reset();
+          document.getElementById('summaryDate').textContent = 'Не выбрана';
+          document.getElementById('summaryTime').textContent = 'Не выбрано';
+          document.getElementById('summaryType').textContent = 'Не выбран';
+          document.getElementById('summaryGuests').textContent = '0';
+          document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
+          setTimeout(() => {
+            document.getElementById('successMessage').style.display = 'none';
+          }, 3000);
+        }, 3000);
+      });
+      
+      
+      function updateTimeSlots(dateStr) {
+       
+        
+        const timeSlots = document.querySelectorAll('.time-slot');
+        
+        
+        timeSlots.forEach(slot => {
+          slot.classList.remove('unavailable');
+          slot.classList.remove('selected');
+        });
+        
+        
+        if (dateStr === "2025-05-12") {
+          document.querySelector('[data-time="09:00"]').classList.add('unavailable');
+          document.querySelector('[data-time="10:00"]').classList.add('unavailable');
+          document.querySelector('[data-time="17:00"]').classList.add('unavailable');
+        } else if (dateStr === "2025-05-13") {
+          document.querySelector('[data-time="13:00"]').classList.add('unavailable');
+          document.querySelector('[data-time="14:00"]').classList.add('unavailable');
+          document.querySelector('[data-time="19:00"]').classList.add('unavailable');
+        } else if (dateStr === "2025-05-14") {
+          document.querySelector('[data-time="11:00"]').classList.add('unavailable');
+          document.querySelector('[data-time="16:00"]').classList.add('unavailable');
+          document.querySelector('[data-time="20:00"]').classList.add('unavailable');
+        }
+        
+        
+        document.getElementById('summaryTime').textContent = 'Не выбрано';
+      }
+    });
+  </script>
+</body>
+</html>

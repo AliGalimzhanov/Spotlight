@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotlight</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="logic and dom.css">
+</head>
+<body>
+    <div class="container">
+        <div class="demo-header">
+            <h1>🎯 Spotlight</h1>
+            <p>Interactive JavaScript Features for Event Management Platform</p>
+        </div>
+
+        <div class="section">
+            <h2>📊 Assignment 5: Core JavaScript Logic</h2>
+            
+            <h3>1. Random Number Generation & Conditionals</h3>
+            <p>Generate random event IDs and see conditional logic in action:</p>
+            <button id="random-btn" class="btn-primary">🎲 Generate Random Event</button>
+            <div id="random-result" class="result-box"></div>
+            
+            <h3>2. Comparators & Logic Operators</h3>
+            <p>Compare event prices and see logical operations:</p>
+            <div>
+                <input type="number" id="price1" placeholder="Event A Price ($)" min="0" step="0.01">
+                <input type="number" id="price2" placeholder="Event B Price ($)" min="0" step="0.01">
+                <button id="compare-btn" class="btn-danger">💰 Compare Prices</button>
+            </div>
+            <div id="comparison-result" class="result-box"></div>
+            
+            <h3>3. Working with Arrays</h3>
+            <p>Manage event list dynamically:</p>
+            <div>
+                <input type="text" id="new-event" placeholder="Enter new event name" maxlength="50">
+                <button id="add-event-btn" class="btn-success">➕ Add Event</button>
+            </div>
+            <div id="events-list" class="result-box"></div>
+            
+            <h3>4. Loops & Dynamic Generation</h3>
+            <p>Generate multiple events with visual differentiation:</p>
+            <button id="generate-events-btn" class="btn-purple">🎪 Generate 10 Featured Events</button>
+            <div id="featured-events" class="events-grid"></div>
+        </div>
+
+        <div class="section">
+            <h2>🎮 Assignment 6: DOM Manipulation</h2>
+            
+            <h3>Element Selection & Styling</h3>
+            <p>Demonstrate different DOM selection methods and styling:</p>
+            <button id="style-btn" class="btn-warning">🎨 Change Header Style</button>
+            <button id="toggle-btn" class="btn-info">👁️ Toggle Demo Image</button>
+            <button id="font-btn" class="btn-primary">📝 Change Font Size (Double-click)</button>
+            
+            <div class="demo-image" id="demo-image">IMG</div>
+            
+            <h3>Text Content Manipulation</h3>
+            <div id="welcome-message" class="welcome-msg">Welcome to Spotlight Event Platform!</div>
+            
+            <h3>Event Listeners & Interactions</h3>
+            <p>Multiple event types with higher-order functions:</p>
+            <button id="sound-btn" class="btn-success">🔊 Play Sound Effect</button>
+            <button id="hover-btn" class="btn-warning">🖱️ Hover Effect Button</button>
+            
+            <h3>JavaScript Objects</h3>
+            <p>Event manager object demonstration:</p>
+            <div>
+                <h4 id="manager-title">Event Manager</h4>
+                <p id="event-counter">Total Events: 0</p>
+                <button id="increment-btn" class="btn-success">📈 Increment Event Count</button>
+                <button id="update-title-btn" class="btn-info">🏷️ Update Manager Title</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="5script.js"></script>
+    <script src="6script.js"></script>
+</body>
+</html>
