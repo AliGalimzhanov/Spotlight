@@ -5,9 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Страница 1</title>
    <link rel="stylesheet" href="contactstyle.css">
-
-
-
 </head>
 <body>
     <header class = "header">
@@ -22,39 +19,29 @@
             <a href="contact.html">contact</a>
         </nav>
         <div id="menu-bars" class="fas fa-bars"></div>
-    
-    
-    
-    
-    
     </header>
     
     <section class="contact" id="contact">
-
         <h1 class="heading"><span>Contact</span> us </h1>
         <form action="">
             <div class="inputBox">
-                <input type="text" placeholder="name">
-                <input type="email" placeholder="email">
+                <input type="text" placeholder="name" required>
+                <input type="email" placeholder="email" required>
             </div>
         
             <div class="inputBox">
-                <input type="number" placeholder="number">
+                <input type="text" placeholder="number">
                 <input type="text" placeholder="subject">
             </div>
-            <textarea name="" placeholder="your message" id="" cols="30" rows="10"></textarea>
+            <textarea name="" placeholder="your message" id="" cols="30" rows="10" required></textarea>
             <input type="submit" value="send messsage" class="btn">
         </form>
-        
-        
-        </section>
+    </section>
 
-
-
-
-
+    <!-- Подключение EmailJS -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    
+    <!-- Подключение вашего JavaScript файла -->
+    <script src="contact.js"></script>
 </body>
-
-
-
 </html>
